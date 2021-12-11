@@ -13,7 +13,6 @@ import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Layout } from "./components/layout";
 const queryClient = new QueryClient();
 
 function App() {
@@ -21,12 +20,10 @@ function App() {
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="about" element={<h1>About</h1>} />
-            </Routes>
-          </Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<h1>About</h1>} />
+          </Routes>
         </BrowserRouter>
       </QueryClientProvider>
     </ChakraProvider>
