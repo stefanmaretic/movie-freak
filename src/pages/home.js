@@ -1,5 +1,5 @@
 import { Box, Container, Heading } from "@chakra-ui/react";
-import Layout from "../components/layout";
+import { Layout } from "../components/layout";
 import { Carousel } from "../components/carousel";
 import { getPopularMovies } from "../services/movies";
 import { getTopTvShows } from "../services/tv-shows";
