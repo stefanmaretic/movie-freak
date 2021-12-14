@@ -2,7 +2,7 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import { Layout } from "../components/layout";
 import { Carousel } from "../components/carousel";
 import { getPopularMovies } from "../services/movies";
-import { getTopTvShows } from "../services/tv-shows";
+import { getPopularMovies, getTopTvShows } from "../services/movies";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 
@@ -11,7 +11,7 @@ export function Home() {
     queryKeys.popularMovies,
     getPopularMovies
   );
-  const topTvShow = useQuery(queryKeys.topTvShows, getTopTvShows);
+  const topTvShows = useQuery(queryKeys.topTvShows, getTopTvShows);
 
   return (
     <Layout>
@@ -26,7 +26,7 @@ export function Home() {
           <Heading as="h3" size="md" pb={3}>
             Top Rated Tv Shows
           </Heading>
-          <Carousel items={topTvShow.data} />
+          <Carousel items={topTvShows.data} />
         </Box>
       </Container>
     </Layout>
