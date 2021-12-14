@@ -1,26 +1,30 @@
-import { Box, Container, VStack } from "@chakra-ui/react";
-import { useQuery } from "react-query";
+import { Box, Container, Heading } from "@chakra-ui/react";
 import Layout from "../components/layout";
+import { Carousel } from "../components/carousel";
+import { getPopularMovies, getTopTvShow } from "../services/movies";
+import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
-import { getPopularMovies } from "../services/movies";
 
 export function Home() {
-  const { data = {} } = useQuery(queryKeys.popularMovies, getPopularMovies);
 
+  const popularMoviesQuery = useQuery(queryKeys.popularMovies, getPopularMovies);
+  const topTopTvShow = useQuery(queryKeys.topTvShow, getTopTvShow);
+  console.log(topTopTvShow)
   return (
     <Layout>
-      <Container maxW="container.xl">
-        <h1>Home</h1>
-        {data?.data?.results?.map((movie) => (
-          <VStack key={movie.id} gap="4">
-            <VStack>
-              <Box>{movie.title}</Box>
-              <Box>{movie.popularity}</Box>
-              <Box>{movie.vote_average}</Box>
-              <Box>{movie.vote_count}</Box>
-            </VStack>
-          </VStack>
-        ))}
+      <Container maxW="container.xl" >
+        <Box my={2}>
+          <Heading as="h3" size="md" pb={3} >
+            Popular Movies
+          </Heading>
+          <Carousel items={popularMoviesQuery.data} />
+        </Box>
+        <Box my={10}>
+          <Heading as="h3" size="md" pb={3} >
+            Top Rated Tv Shows
+          </Heading>
+          <Carousel items={topTopTvShow.data} />
+        </Box>
       </Container>
     </Layout>
   );
