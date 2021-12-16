@@ -11,14 +11,14 @@ const defaultBreakpoints = {
   1247: { slidesPerView: 5 },
 };
 
-export function Carousel(
-  props = [],
+export function Carousel({
+  items = {},
   navigation = true,
   spaceBetween = 30,
   slidesPerView = 5,
   pagination = false,
-  breakpoints = defaultBreakpoints
-) {
+  breakpoints = defaultBreakpoints,
+}) {
   return (
     <>
       <Swiper
@@ -28,7 +28,7 @@ export function Carousel(
         pagination={pagination}
         breakpoints={breakpoints}
       >
-        {props?.items?.data?.results?.map((movie) => (
+        {items?.data?.results?.map((movie) => (
           <SwiperSlide key={movie.id}>
             <MovieCard
               title={movie.title || movie.name}

@@ -4,7 +4,6 @@ import { Box, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
 export const MovieCard = (props) => {
-  console.log(props.image);
   const bg = baseImageUrl + props.image;
   return (
     <>
@@ -26,13 +25,13 @@ export const MovieCard = (props) => {
           borderRadius={10}
           bg="rgba(0,0,0,0.7)"
         >
-          <Text color="#ffc000" pl={6} pt={4}>
-            {props.year.slice(0, 4)}
+          <Text color="yellow.400" pl={6} pt={4}>
+            {new Date(props.year).getFullYear()}
           </Text>
           <Heading size="md" isTruncated pl={6}>
             {props.title}
           </Heading>
-          <Flex alignItems="center" color="#ffc000" pt={1}>
+          <Flex alignItems="center" color="yellow.400" pt={1}>
             <Icon as={StarIcon} ml={6} />
             <Text fontWeight="bold" pl={2}>
               {props.rating + "/10"}

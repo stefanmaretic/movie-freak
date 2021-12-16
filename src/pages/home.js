@@ -11,7 +11,7 @@ export function Home() {
     queryKeys.popularMovies,
     getPopularMovies
   );
-  const topTopTvShow = useQuery(queryKeys.topTvShows, getTopTvShows);
+  const topTvShow = useQuery(queryKeys.topTvShows, getTopTvShows);
 
   return (
     <Layout>
@@ -26,7 +26,7 @@ export function Home() {
           <Heading as="h3" size="md" pb={3}>
             Top Rated Tv Shows
           </Heading>
-          <Carousel items={topTopTvShow.data} />
+          <Carousel items={topTvShow.data} />
         </Box>
       </Container>
     </Layout>
