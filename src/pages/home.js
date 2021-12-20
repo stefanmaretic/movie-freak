@@ -2,7 +2,7 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import { Layout } from "../components/layout";
 import { Carousel } from "../components/carousel";
 import { getPopularMovies } from "../services/movies";
-import { getPopularMovies, getTopTvShows } from "../services/movies";
+import { getTopTvShows } from "../services/tv-shows";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 
