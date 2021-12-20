@@ -5,7 +5,7 @@ SwiperCore.use([Pagination]);
 SwiperCore.use([Navigation]);
 
 const defaultBreakpoints = {
-  375: { slidesPerView: 1 },
+  300: { slidesPerView: 1 },
   640: { slidesPerView: 2 },
   768: { slidesPerView: 3 },
   1247: { slidesPerView: 5 },
