@@ -4,6 +4,7 @@ import { Carousel } from "../components/carousel";
 import { getPopularMovies } from "../services/movies";
 import { getTopTvShows } from "../services/tv-shows";
 import { useQuery } from "react-query";
+import Layout from "../components/layout";
 import { queryKeys } from "../config/query-keys";
 
 export function Home() {
