@@ -6,13 +6,14 @@ import {
   Flex,
   Input,
   InputGroup,
-  InputLeftElement,
   Stack,
   Divider,
+  InputRightElement,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { baseImageUrl } from "../services/instances";
 import { useOutsideClick } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const Search = () => {
   const apiKey = "c33b71412633be3e4a413c17428d1624";
@@ -36,6 +37,10 @@ export const Search = () => {
     e.preventDefault();
     setSearchText(e.target.value);
   };
+  const clearInput = () => {
+    setContent([]);
+    setSearchText("");
+  };
 
   const ref = useRef();
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -53,14 +58,22 @@ export const Search = () => {
       >
         <Stack w="300px">
           <InputGroup onClick={() => setIsModalOpen(true)} borderRadius={"md"}>
-            <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
             <Input
+              value={searchText}
               variant="filled"
               focusBorderColor="none"
-              type="search"
+              type="text"
               placeholder="Search for a movie, tv show..."
               onChange={(e) => handleOnChange(e)}
             />
+            <InputRightElement>
+              {" "}
+              {searchText.length === 0 ? (
+                <SearchIcon />
+              ) : (
+                <SmallCloseIcon onClick={clearInput} />
+              )}{" "}
+            </InputRightElement>
           </InputGroup>
         </Stack>
         {isModalOpen ? (
@@ -89,16 +102,23 @@ export const Search = () => {
           >
             {content &&
               content.map((movie) => (
-                <Box w="400px">
-                  <Flex flexDir="row" p={1} alignItems="center">
-                    <Image h="50px" src={baseImageUrl + movie.poster_path} />
-                    <Box>
-                      <Text fontWeight="bold" pl={2}>
-                        {movie.title || movie.name}
-                      </Text>
-                      <Text pl={2}>{movie.media_type}</Text>
-                    </Box>
-                  </Flex>
+                <Box
+                  w="400px"
+                  _hover={{
+                    bg: "gray.100",
+                  }}
+                >
+                  <Link to={`/movie/${movie.id}`}>
+                    <Flex flexDir="row" p={1} alignItems="center">
+                      <Image h="50px" src={baseImageUrl + movie.poster_path} />
+                      <Box>
+                        <Text fontWeight="bold" pl={2}>
+                          {movie.title || movie.name}
+                        </Text>
+                        <Text pl={2}>{movie.media_type}</Text>
+                      </Box>
+                    </Flex>
+                  </Link>
                   <Divider />
                 </Box>
               ))}
