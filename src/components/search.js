@@ -20,7 +20,7 @@ export const Search = () => {
   const [content, setContent] = useState([]);
 
   useEffect(() => {
-    if (searchText.length > 2) {
+    if (searchText.length > 1) {
       fetch(
         `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${searchText}`
       )
