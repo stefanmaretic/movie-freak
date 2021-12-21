@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 import { searchByQuery } from "../services/search";
+import { useDebounce } from "../hooks/useDebounce";
 
 const ListboxItemEmpty = () => {
   return (
@@ -65,8 +66,10 @@ const ListboxItem = ({ movie }) => {
 export const Search = () => {
   const [searchText, setSearchText] = useState("");
 
-  const { data } = useQuery([queryKeys.search, searchText], () =>
-    searchByQuery(searchText)
+  const debouncedSearchText = useDebounce(searchText, 500);
+
+  const { data } = useQuery([queryKeys.search, debouncedSearchText], () =>
+    searchByQuery(debouncedSearchText)
   );
 
   const items = data?.data;
