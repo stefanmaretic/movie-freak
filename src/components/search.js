@@ -14,31 +14,68 @@ import { SearchIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { baseImageUrl } from "../services/instances";
 import { useOutsideClick } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import { queryKeys } from "../config/query-keys";
+import { searchByQuery } from "../services/search";
+
+const ListboxItemEmpty = () => {
+  return (
+    <Box
+      w="400px"
+      _hover={{
+        bg: "gray.100",
+      }}
+    >
+      <Flex flexDir="row" p={1} alignItems="center">
+        <Box>
+          <Text fontWeight="bold" pl={2}>
+            There are no search results.
+          </Text>
+        </Box>
+      </Flex>
+      <Divider />
+    </Box>
+  );
+};
+
+const ListboxItem = ({ movie }) => {
+  return (
+    <Box
+      w="400px"
+      _hover={{
+        bg: "gray.100",
+      }}
+    >
+      <Link to={`/movie/${movie.id}`}>
+        <Flex flexDir="row" p={1} alignItems="center">
+          <Image h="50px" src={baseImageUrl + movie.poster_path} />
+          <Box>
+            <Text fontWeight="bold" pl={2}>
+              {movie.title || movie.name}
+            </Text>
+            <Text pl={2}>{movie.media_type}</Text>
+          </Box>
+        </Flex>
+      </Link>
+      <Divider />
+    </Box>
+  );
+};
 
 export const Search = () => {
-  const apiKey = "c33b71412633be3e4a413c17428d1624";
   const [searchText, setSearchText] = useState("");
-  const [content, setContent] = useState([]);
 
-  useEffect(() => {
-    if (searchText.length > 1) {
-      fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${searchText}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setContent(data.results);
-          console.log(data);
-        });
-    }
-  }, [searchText]);
+  const { data } = useQuery([queryKeys.search, searchText], () =>
+    searchByQuery(searchText)
+  );
+
+  const items = data?.data;
 
   const handleOnChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
   };
   const clearInput = () => {
-    setContent([]);
     setSearchText("");
   };
 
@@ -76,7 +113,7 @@ export const Search = () => {
             </InputRightElement>
           </InputGroup>
         </Stack>
-        {isModalOpen ? (
+        {isModalOpen && searchText ? (
           <Box
             borderRadius="5"
             boxShadow="xs"
@@ -100,28 +137,13 @@ export const Search = () => {
               },
             }}
           >
-            {content &&
-              content.map((movie) => (
-                <Box
-                  w="400px"
-                  _hover={{
-                    bg: "gray.100",
-                  }}
-                >
-                  <Link to={`/movie/${movie.id}`}>
-                    <Flex flexDir="row" p={1} alignItems="center">
-                      <Image h="50px" src={baseImageUrl + movie.poster_path} />
-                      <Box>
-                        <Text fontWeight="bold" pl={2}>
-                          {movie.title || movie.name}
-                        </Text>
-                        <Text pl={2}>{movie.media_type}</Text>
-                      </Box>
-                    </Flex>
-                  </Link>
-                  <Divider />
-                </Box>
-              ))}
+            {items?.results?.length > 0 ? (
+              items?.results?.map((movie) => (
+                <ListboxItem key={movie.id} movie={movie} />
+              ))
+            ) : (
+              <ListboxItemEmpty />
+            )}
           </Box>
         ) : null}
       </Flex>
