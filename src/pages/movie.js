@@ -5,22 +5,19 @@ import { queryKeys } from "../config/query-keys";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
 export function Movie() {
-  const { data = {} } = useQuery(queryKeys.popularMovies, getMovie);
+  const { movieId } = useParams();
 
-  const params = useParams();
-  function getMovieById(id) {
-    return data?.data?.results?.find(
-      (movie) => Number(movie.id) === Number(id)
-    );
-  }
+  const { data = {} } = useQuery([queryKeys.movies, movieId], () =>
+    getMovie(movieId)
+  );
 
-  const movie = getMovieById(params.movieId);
+  const movie = data?.data;
 
   return (
     <>
       <Box>
-        <Heading color="red">{movie.title}</Heading>
-        <Text>{movie.release_date}</Text>
+        <Heading color="red">{movie?.title}</Heading>
+        <Text>{movie?.release_date}</Text>
       </Box>
     </>
   );
