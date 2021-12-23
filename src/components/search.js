@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Box,
   Image,
@@ -49,7 +49,7 @@ const ListboxItem = ({ movie }) => {
     >
       <Link to={`/movie/${movie.id}`}>
         <Flex flexDir="row" p={1} alignItems="center">
-          <Image h="50px" src={baseImageUrl + movie.poster_path} />
+          <Image h="38px" src={baseImageUrl + movie.poster_path} />
           <Box>
             <Text fontWeight="bold" pl={2}>
               {movie.title || movie.name}
@@ -65,11 +65,10 @@ const ListboxItem = ({ movie }) => {
 
 export const Search = () => {
   const [searchText, setSearchText] = useState("");
-
-  const debouncedSearchText = useDebounce(searchText, 500);
-
-  const { data } = useQuery([queryKeys.search, debouncedSearchText], () =>
-    searchByQuery(debouncedSearchText)
+  const debouncedSearchText = useDebounce(searchText, 300);
+  const { data, isFetching } = useQuery(
+    [queryKeys.search, debouncedSearchText],
+    () => searchByQuery(debouncedSearchText)
   );
 
   const items = data?.data;
@@ -78,6 +77,7 @@ export const Search = () => {
     e.preventDefault();
     setSearchText(e.target.value);
   };
+
   const clearInput = () => {
     setSearchText("");
   };
@@ -91,16 +91,17 @@ export const Search = () => {
 
   return (
     <>
-      <Flex
-        position="relative"
-        pl={16}
-        display={{ sm: "none", md: "none", lg: "none", xl: "flex" }}
-      >
-        <Stack w="300px">
+      <Flex>
+        <Stack w="100%">
           <InputGroup onClick={() => setIsModalOpen(true)} borderRadius={"md"}>
             <Input
+              minW="300px"
+              borderRadius={6}
+              p={2}
+              bg="gray.50"
+              _focus={{ bg: "white", borderColor: "yellow.400" }}
               value={searchText}
-              variant="filled"
+              variant="flushed"
               focusBorderColor="none"
               type="text"
               placeholder="Search for a movie, tv show..."
@@ -145,7 +146,9 @@ export const Search = () => {
                 <ListboxItem key={movie.id} movie={movie} />
               ))
             ) : (
-              <ListboxItemEmpty />
+              <Text fontWeight="bold">
+                {isFetching ? "Searching..." : <ListboxItemEmpty />}
+              </Text>
             )}
           </Box>
         ) : null}
