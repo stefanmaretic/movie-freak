@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MovieCard } from "./movie-card";
 import SwiperCore, { Pagination, Navigation } from "swiper";
+import { Link } from "react-router-dom";
 SwiperCore.use([Pagination]);
 SwiperCore.use([Navigation]);
 
@@ -30,12 +31,14 @@ export function Carousel({
       >
         {items?.data?.results?.map((movie) => (
           <SwiperSlide key={movie.id}>
-            <MovieCard
-              title={movie.title || movie.name}
-              image={movie.poster_path}
-              rating={movie.vote_average}
-              year={movie.release_date || movie.first_air_date}
-            />
+            <Link to={`/movie/${movie.id}`}>
+              <MovieCard
+                title={movie.title || movie.name}
+                image={movie.poster_path}
+                rating={movie.vote_average}
+                year={movie.release_date || movie.first_air_date}
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

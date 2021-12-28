@@ -13,6 +13,7 @@ import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Movie } from "./pages/movie";
 const queryClient = new QueryClient();
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/movie/:movieId" element={<Movie />} />
             <Route path="about" element={<h1>About</h1>} />
           </Routes>
         </BrowserRouter>
@@ -29,5 +31,4 @@ function App() {
     </ChakraProvider>
   );
 }
-
 export default App;
