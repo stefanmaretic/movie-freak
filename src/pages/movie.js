@@ -4,24 +4,17 @@ import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 import { baseImageUrl, baseProfileImg } from "../services/instances";
 import {
-  Button,
   CircularProgress,
   CircularProgressLabel,
   HStack,
 } from "@chakra-ui/react";
 import { Box, Heading, Text, Image, Flex } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
-import {
-  BsFillBookmarkFill,
-  BsFillSuitHeartFill,
-  BsInstagram,
-  BsFacebook,
-  BsTwitter,
-} from "react-icons/bs";
+import { BsInstagram, BsFacebook, BsTwitter } from "react-icons/bs";
 import { GoHome } from "react-icons/go";
-import { FaListUl } from "react-icons/fa";
 import { Icon } from "@chakra-ui/react";
 import { Layout } from "../components/layout";
+import { MovieDetails } from "../components/movie-details";
+
 export function Movie() {
   const { movieId } = useParams();
 
@@ -31,123 +24,24 @@ export function Movie() {
   const { data: cast = {} } = useQuery([queryKeys.cast, movieId], () =>
     getMovieCast(movieId)
   );
+
   const { data: recom = {} } = useQuery([queryKeys.recom, movieId], () =>
     getMovieRecom(movieId)
   );
-  const movieRecom = recom?.data;
-  console.log(movieRecom);
 
   const actors = cast?.data?.cast;
   // console.log(actors);
   const movie = data?.data;
   // console.log(movie);
-  const img = baseImageUrl + movie?.poster_path;
-  const vote = movie?.vote_average * 10;
-  const time = movie?.runtime;
-  const genres = movie?.genres;
   const CollectionImg =
     baseImageUrl + movie?.belongs_to_collection?.backdrop_path;
+  const movieRecom = recom?.data;
+  console.log(movieRecom);
+
   return (
     <>
       <Layout>
-        <Box
-          backgroundImage={`linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)),
-          url(${baseImageUrl + movie?.backdrop_path})`}
-          position="relative"
-          bgPosition="center"
-          bgSize="cover"
-          w="100%"
-          h="80vh"
-          color="#fff"
-        >
-          <Box pt="20">
-            <Flex>
-              <Box ml="10">
-                <Image w="300px" h="440px" src={img} alt={movie?.title} />
-              </Box>
-              <Box w="920px" ml="10">
-                <Flex align="center">
-                  <Heading>{movie?.title}</Heading>
-                  <Text color="gray.300" ml={2} fontSize="3xl">
-                    ({new Date(movie?.release_date).getFullYear()})
-                  </Text>
-                </Flex>
-                <Flex mb={2} align="center">
-                  <Text fontSize="sm" color="gray.300">
-                    {movie?.release_date}
-                  </Text>
-                  <Text>
-                    {genres?.map((genre) => {
-                      return (
-                        <Box
-                          display="inline-flex"
-                          fontSize="sm"
-                          color="#ccc"
-                          key={genre.id}
-                        >
-                          <Box ml={2}>{genre.name},</Box>
-                        </Box>
-                      );
-                    })}
-                  </Text>
-                  <Text fontSize="sm" ml={2} color="#ccc">
-                    {time} minutes.
-                  </Text>
-                </Flex>
-                <Flex align="center">
-                  <Box fontWeight="bold" pl={2} pb={2}>
-                    <CircularProgress value={vote} color="green.400">
-                      <CircularProgressLabel>
-                        {movie?.vote_average}
-                      </CircularProgressLabel>
-                    </CircularProgress>
-                    <Text as="span" ml={2}>
-                      Vote average
-                    </Text>
-                  </Box>
-                  <HStack ml={6} gap={4}>
-                    <Button
-                      _hover={{ bg: "transparent" }}
-                      borderRadius="50%"
-                      bgColor="blue.900"
-                    >
-                      <Icon as={FaListUl} w={3} />
-                    </Button>
-
-                    <Button
-                      _hover={{ bg: "transparent" }}
-                      borderRadius="50%"
-                      bgColor="blue.900"
-                    >
-                      <StarIcon w={3} />
-                    </Button>
-                    <Button
-                      _hover={{ bg: "transparent" }}
-                      borderRadius="50%"
-                      bgColor="blue.900"
-                    >
-                      <Icon as={BsFillBookmarkFill} w={3} />
-                    </Button>
-                    <Button
-                      _hover={{ bg: "transparent" }}
-                      borderRadius="50%"
-                      bgColor="blue.900"
-                    >
-                      <Icon w={3} as={BsFillSuitHeartFill} />
-                    </Button>
-                  </HStack>
-                </Flex>
-                <Text fontSize="ig" mb={2} color="gray.300">
-                  {movie?.tagline}
-                </Text>
-                <Text fontSize="xl" fontWeight="bold" mb={2}>
-                  OVERVIEW:
-                </Text>
-                <Box fontSize="ig">{movie?.overview}</Box>
-              </Box>
-            </Flex>
-          </Box>
-        </Box>
+        <MovieDetails />
         <Flex>
           <Box m={(10, 10)}>
             <Heading>Cast</Heading>
@@ -174,14 +68,13 @@ export function Movie() {
               }}
             >
               <HStack>
-                {actors?.slice(0, 21).map((actor) => (
+                {actors?.map((actor) => (
                   <>
                     <Box key={actor?.id} minW="200px" minH="266px">
                       {actor?.profile_path ? (
                         <Image
                           w="150px"
                           h="200px"
-                          // src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
                           src={baseProfileImg + actor.profile_path}
                           alt=""
                         />
@@ -200,6 +93,70 @@ export function Movie() {
                   </>
                 ))}
               </HStack>
+            </Box>
+
+            <Box mt={20}>
+              <Heading>Related movies</Heading>
+              <Box
+                borderRadius="5"
+                boxShadow="xl"
+                overflow="auto"
+                zIndex="popover"
+                bg="white"
+                p={2}
+                cursor="pointer"
+                w="720px"
+                css={{
+                  "&::-webkit-scrollbar": {
+                    width: "8px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    width: "8px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "gray",
+                    borderRadius: "24px",
+                  },
+                }}
+              >
+                <HStack>
+                  {movieRecom?.results.slice(0, 21).map((result) => {
+                    return (
+                      <Box key={result.id} minW="160px" minH="266px">
+                        <Link to={`/movie/${movie.id}`}>
+                          <Image
+                            w="100%"
+                            h="200px"
+                            src={baseImageUrl + result.poster_path}
+                            alt=""
+                          />
+                        </Link>
+
+                        <Box
+                          fontWeight="bold"
+                          pt={3}
+                          pb={3}
+                          bg="#000"
+                          color="#fff"
+                          textAlign="center"
+                        >
+                          <CircularProgress
+                            value={result?.vote_average * 10}
+                            color="green.400"
+                          >
+                            <CircularProgressLabel>
+                              {result?.vote_average}
+                            </CircularProgressLabel>
+                          </CircularProgress>
+                          <Text as="span" ml={2}>
+                            Rating
+                          </Text>
+                        </Box>
+                      </Box>
+                    );
+                  })}
+                </HStack>
+              </Box>
             </Box>
           </Box>
           <Box mt={10} ml={40}>
