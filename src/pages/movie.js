@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { getMovie, getMovieCast } from "../services/movies";
+import { getMovie, getMovieCast, getMovieRecom } from "../services/movies";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 import { baseImageUrl, baseProfileImg } from "../services/instances";
@@ -31,16 +31,22 @@ export function Movie() {
   const { data: cast = {} } = useQuery([queryKeys.cast, movieId], () =>
     getMovieCast(movieId)
   );
+  const { data: recom = {} } = useQuery([queryKeys.recom, movieId], () =>
+    getMovieRecom(movieId)
+  );
+  const movieRecom = recom?.data;
+  console.log(movieRecom);
 
   const actors = cast?.data?.cast;
   // console.log(actors);
   const movie = data?.data;
-  console.log(movie);
+  // console.log(movie);
   const img = baseImageUrl + movie?.poster_path;
   const vote = movie?.vote_average * 10;
   const time = movie?.runtime;
   const genres = movie?.genres;
-
+  const CollectionImg =
+    baseImageUrl + movie?.belongs_to_collection?.backdrop_path;
   return (
     <>
       <Layout>
@@ -57,7 +63,7 @@ export function Movie() {
           <Box pt="20">
             <Flex>
               <Box ml="10">
-                <Image w="300px" h="400px" src={img} alt={movie?.title} />
+                <Image w="300px" h="440px" src={img} alt={movie?.title} />
               </Box>
               <Box w="920px" ml="10">
                 <Flex align="center">
@@ -77,9 +83,9 @@ export function Movie() {
                           display="inline-flex"
                           fontSize="sm"
                           color="#ccc"
-                          key={genre?.id}
+                          key={genre.id}
                         >
-                          <Box ml={2}>{genre?.name},</Box>
+                          <Box ml={2}>{genre.name},</Box>
                         </Box>
                       );
                     })}
@@ -89,16 +95,16 @@ export function Movie() {
                   </Text>
                 </Flex>
                 <Flex align="center">
-                  <Text fontWeight="bold" pl={2} pb={2}>
+                  <Box fontWeight="bold" pl={2} pb={2}>
                     <CircularProgress value={vote} color="green.400">
                       <CircularProgressLabel>
                         {movie?.vote_average}
                       </CircularProgressLabel>
                     </CircularProgress>
-                    <Box as="span" ml={2}>
+                    <Text as="span" ml={2}>
                       Vote average
-                    </Box>
-                  </Text>
+                    </Text>
+                  </Box>
                   <HStack ml={6} gap={4}>
                     <Button
                       _hover={{ bg: "transparent" }}
@@ -171,15 +177,23 @@ export function Movie() {
                 {actors?.slice(0, 21).map((actor) => (
                   <>
                     <Box key={actor?.id} minW="200px" minH="266px">
-                      <Image
-                        w="150px"
-                        h="200px"
-                        bgColor="gray"
-                        // src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
-                        src={baseProfileImg + actor.profile_path}
-                        alt=""
-                        onerror="this.onerror=null this.src='http://example.com/existent-image.jpg' "
-                      />
+                      {actor?.profile_path ? (
+                        <Image
+                          w="150px"
+                          h="200px"
+                          // src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                          src={baseProfileImg + actor.profile_path}
+                          alt=""
+                        />
+                      ) : (
+                        <Image
+                          w="150px"
+                          h="200px"
+                          src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                          alt=""
+                        />
+                      )}
+
                       <Text fontWeight="bold">{actor.name}</Text>
                       <Text>{actor.character}</Text>
                     </Box>
@@ -190,16 +204,16 @@ export function Movie() {
           </Box>
           <Box mt={10} ml={40}>
             <HStack gap={5} mb={8}>
-              <Link to="/#">
+              <Link to="#">
                 <Icon as={BsInstagram} />
               </Link>
-              <Link to="/#">
+              <Link to="#">
                 <Icon as={BsFacebook} />
               </Link>
-              <Link to="/#">
+              <Link to="#">
                 <Icon as={BsTwitter} />
               </Link>
-              <Link to="/#">
+              <Link to="/">
                 <Icon as={GoHome} />
               </Link>
             </HStack>
@@ -223,6 +237,20 @@ export function Movie() {
               <Text fontWeight="bold">Revenue:</Text>
               <Text as="span">${movie?.revenue}</Text>
             </Box>
+            {[movie?.belongs_to_collection].map((item) => {
+              return (
+                <Box key={item?.id} mb={5}>
+                  {item?.id ? (
+                    <Text fontWeight="bold">Belong to collection:</Text>
+                  ) : (
+                    <Box>{""}</Box>
+                  )}
+
+                  <Text as="span">{item?.name}</Text>
+                  <Image src={CollectionImg} alt="" />
+                </Box>
+              );
+            })}
           </Box>
         </Flex>
       </Layout>
