@@ -4,4 +4,8 @@ export const queryKeys = {
   movies: "movies",
   cast: "cast",
   recom: "recom",
+  tvshows: "tvshows",
+  video: "video",
+  tvShowRecom: "tvShowRecom",
+  tvShowCast: "tvShowCast",
 };

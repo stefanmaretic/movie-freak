@@ -25,16 +25,18 @@ export function Movie() {
   const { data: recom = {} } = useQuery([queryKeys.recom, movieId], () =>
     getMovieRecom(movieId)
   );
+  // const { data: video = {} } = useQuery([queryKeys.video, movieId], () =>
+  //   getVideo(movieId)
+  // );
+  // const movieVideo = video?.data;
+  // console.log(movieVideo);
 
   const actors = cast?.data?.cast;
-  // console.log(actors);
   const movie = data?.data;
-  // console.log(movie);
   const CollectionImg =
     baseImageUrl + movie?.belongs_to_collection?.backdrop_path;
   const movieRecom = recom?.data;
-  console.log(movieRecom);
-
+  console.log(movie);
   return (
     <>
       <Layout>
@@ -73,7 +75,7 @@ export function Movie() {
                           w="150px"
                           h="200px"
                           src={baseProfileImg + actor.profile_path}
-                          alt=""
+                          alt={actor.name}
                         />
                       ) : (
                         <Image
@@ -93,7 +95,7 @@ export function Movie() {
             </Box>
 
             <Box mt={20}>
-              <Heading>Related movies</Heading>
+              <Heading>Related TvShows</Heading>
 
               <Box
                 borderRadius="5"
@@ -136,7 +138,7 @@ export function Movie() {
               </Box>
             </Box>
           </Box>
-          <Box mt={10} ml={40}>
+          <Box mt={10} mr={10} ml={40}>
             <HStack gap={5} mb={8}>
               <Link to="#">
                 <Icon as={BsInstagram} />
@@ -181,7 +183,7 @@ export function Movie() {
                   )}
 
                   <Text as="span">{item?.name}</Text>
-                  <Image src={CollectionImg} alt="" />
+                  <Image mt={2} src={CollectionImg} alt="" />
                 </Box>
               );
             })}

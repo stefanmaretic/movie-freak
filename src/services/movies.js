@@ -7,3 +7,5 @@ export const getMovieCast = async (id) => await api.get(`/movie/${id}/credits`);
 
 export const getMovieRecom = async (id) =>
   await api.get(`/movie/${id}/recommendations`);
+
+export const getVideo = async (id) => await api.get(`/movie/${id}/videos`);
