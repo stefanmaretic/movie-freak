@@ -34,7 +34,7 @@ export const MovieCard = (props) => {
           <Flex alignItems="center" color="yellow.400" pt={1}>
             <Icon as={StarIcon} ml={6} />
             <Text fontWeight="bold" pl={2}>
-              {props.rating + "/10"}
+              {props.rating.toFixed(1) + "/10"}
             </Text>
           </Flex>
         </Box>

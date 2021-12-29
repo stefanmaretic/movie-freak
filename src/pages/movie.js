@@ -3,17 +3,14 @@ import { getMovie, getMovieCast, getMovieRecom } from "../services/movies";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 import { baseImageUrl, baseProfileImg } from "../services/instances";
-import {
-  CircularProgress,
-  CircularProgressLabel,
-  HStack,
-} from "@chakra-ui/react";
-import { Box, Heading, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Heading, Text, Image, Flex, HStack } from "@chakra-ui/react";
 import { BsInstagram, BsFacebook, BsTwitter } from "react-icons/bs";
 import { GoHome } from "react-icons/go";
 import { Icon } from "@chakra-ui/react";
 import { Layout } from "../components/layout";
 import { MovieDetails } from "../components/movie-details";
+
+import { MovieCard } from "../components/movie-card";
 
 export function Movie() {
   const { movieId } = useParams();
@@ -97,6 +94,7 @@ export function Movie() {
 
             <Box mt={20}>
               <Heading>Related movies</Heading>
+
               <Box
                 borderRadius="5"
                 boxShadow="xl"
@@ -120,38 +118,17 @@ export function Movie() {
                 }}
               >
                 <HStack>
-                  {movieRecom?.results.slice(0, 21).map((result) => {
+                  {movieRecom?.results.map((result) => {
                     return (
                       <Box key={result.id} minW="160px" minH="266px">
-                        <Link to={`/movie/${movie.id}`}>
-                          <Image
-                            w="100%"
-                            h="200px"
-                            src={baseImageUrl + result.poster_path}
-                            alt=""
+                        <Link to={`/movie/${result.id}`}>
+                          <MovieCard
+                            title={result.title || result.name}
+                            image={result.poster_path}
+                            rating={result.vote_average}
+                            year={result.release_date || result.first_air_date}
                           />
                         </Link>
-
-                        <Box
-                          fontWeight="bold"
-                          pt={3}
-                          pb={3}
-                          bg="#000"
-                          color="#fff"
-                          textAlign="center"
-                        >
-                          <CircularProgress
-                            value={result?.vote_average * 10}
-                            color="green.400"
-                          >
-                            <CircularProgressLabel>
-                              {result?.vote_average}
-                            </CircularProgressLabel>
-                          </CircularProgress>
-                          <Text as="span" ml={2}>
-                            Rating
-                          </Text>
-                        </Box>
                       </Box>
                     );
                   })}
