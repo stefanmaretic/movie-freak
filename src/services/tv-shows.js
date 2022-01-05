@@ -6,3 +6,4 @@ export const getTvShowsCast = async (id) =>
   await api.get(`/tv/${id}/aggregate_credits`);
 export const getTvShowsRecom = async (id) =>
   await api.get(`/tv/${id}/recommendations`);
+export const getTvShowsCrew = async (id) => await api.get(`/tv/${id}/credits`);

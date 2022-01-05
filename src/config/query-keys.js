@@ -8,4 +8,6 @@ export const queryKeys = {
   video: "video",
   tvShowRecom: "tvShowRecom",
   tvShowCast: "tvShowCast",
+  crew: "crew",
+  tvShowCrew: "tvShowCrew",
 };

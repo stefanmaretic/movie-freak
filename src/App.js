@@ -15,6 +15,8 @@ import "swiper/components/pagination/pagination.min.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Movie } from "./pages/movie";
 import Shows from "./pages/shows";
+import MovieFullCrew from "./pages/movie-full-crew";
+import TvShowFullCrew from "./pages/tvShow-full-crew";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +30,8 @@ function App() {
             <Route path="/movie/:movieId" element={<Movie />} />
             <Route path="/tv/:tvId" element={<Shows />} />
             <Route path="about" element={<h1>About</h1>} />
+            <Route path="/movie-full-crew" element={<MovieFullCrew />} />
+            <Route path="/tvshow-full-crew" element={<TvShowFullCrew />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

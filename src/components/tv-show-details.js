@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
-import { getMovie } from "../services/movies";
 import { baseImageUrl } from "../services/instances";
 import {
   Button,
@@ -13,29 +12,28 @@ import {
 import { StarIcon } from "@chakra-ui/icons";
 import { BsFillBookmarkFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { FaListUl } from "react-icons/fa";
+import { getTvShows } from "../services/tv-shows";
 import { useParams } from "react-router-dom";
-export const MovieDetails = () => {
-  const { movieId } = useParams();
 
-  const { data = {} } = useQuery([queryKeys.movies, movieId], () =>
-    getMovie(movieId)
+export default function TvShowDetails() {
+  const { tvId } = useParams();
+  const { data = {} } = useQuery([queryKeys.tvshows, tvId], () =>
+    getTvShows(tvId)
   );
-  const movie = data?.data;
-  const genres = movie?.genres;
-  const img = baseImageUrl + movie?.poster_path;
-  const time = movie?.runtime;
-  const vote = movie?.vote_average * 10;
-
+  const tvShows = data?.data;
+  const genres = tvShows?.genres;
+  const img = baseImageUrl + tvShows?.poster_path;
+  const time = tvShows?.episode_run_time;
+  const vote = tvShows?.vote_average * 10;
+  const creators = tvShows?.created_by;
   return (
     <Box
-      backgroundImage={[
-        `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)),
-          url(${baseImageUrl + movie?.backdrop_path})`,
-      ]}
+      backgroundImage={`linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)),
+          url(${baseImageUrl + tvShows?.backdrop_path})`}
       position="relative"
       bgPosition="center"
       bgSize="cover"
-      w={["100%", "100%", "100%", "100%"]}
+      w="100%"
       h="80vh"
       color="#fff"
       overflow="auto"
@@ -47,20 +45,20 @@ export const MovieDetails = () => {
               w={[null, "120x", "300px", "300px"]}
               h={[null, "160px", "440px", "440px"]}
               src={img}
-              alt={movie?.title}
+              alt={tvShows?.name}
             />
           </Box>
-          <Box w={["300px", "420px", "900px", "900px"]} ml="10">
+          <Box w={["260px", "420px", "920px", "920px"]} ml="10">
             <Flex mb={1} align="center">
               <Heading fontSize={["ig", "ig", "3xl", "3xl"]}>
-                {movie?.title}
+                {tvShows?.name}
               </Heading>
               <Text
                 color="gray.300"
                 ml={[1, 1, 2, 2]}
                 fontSize={["ig", "ig", "3xl", "3xl"]}
               >
-                ({new Date(movie?.release_date).getFullYear()})
+                ({new Date(tvShows?.first_air_date).getFullYear()})
               </Text>
             </Flex>
             <Flex
@@ -69,7 +67,7 @@ export const MovieDetails = () => {
               direction={["column", "row", "row", "row"]}
             >
               <Text fontSize="sm" color="gray.300">
-                {movie?.release_date}
+                {tvShows?.first_air_date}
               </Text>
               <Text>
                 {genres?.map((genre) => {
@@ -89,7 +87,6 @@ export const MovieDetails = () => {
                 {time} minutes.
               </Text>
             </Flex>
-
             <Flex align="center">
               <Box
                 display={["none", "none", "block", "block"]}
@@ -97,9 +94,9 @@ export const MovieDetails = () => {
                 pl={2}
                 pb={[1, 1, 2, 2]}
               >
-                <CircularProgress value={vote} color="green.400">
+                <CircularProgress value={vote} color="red.400">
                   <CircularProgressLabel>
-                    {movie?.vote_average}
+                    {tvShows?.vote_average}
                   </CircularProgressLabel>
                 </CircularProgress>
                 <Text
@@ -146,11 +143,9 @@ export const MovieDetails = () => {
                 </Button>
               </HStack>
             </Flex>
-
             <Text fontSize="ig" mb={2} color="#fff">
-              {movie?.tagline}
+              {tvShows?.tagline}
             </Text>
-
             <Text
               fontSize={["md", "md", "xl", "xl"]}
               fontWeight="bold"
@@ -158,27 +153,49 @@ export const MovieDetails = () => {
             >
               OVERVIEW:
             </Text>
+            {tvShows?.overview ? (
+              <Box fontSize={["xs", "xs", "md", "md"]}>{tvShows?.overview}</Box>
+            ) : (
+              <Text fontSize={["xs", "xs", "md", "md"]}>
+                Overview is not available right now.
+              </Text>
+            )}
 
-            <Box fontSize={["xs", "xs", "md", "md"]} mr={10}>
-              {movie?.overview}
+            <Text
+              fontWeight="bold"
+              fontSize={["md", "md", "xl", "xl"]}
+              mt={5}
+              mb={1}
+            >
+              Created by:
+            </Text>
+            {creators?.map((creator) => {
+              return (
+                <Box key={creator.id}>
+                  <Text fontSize={["xs", "xs", "md", "md"]}>
+                    {creator.name}
+                  </Text>
+                </Box>
+              );
+            })}
+            <Box
+              display={["block", "block", "none", "none"]}
+              fontWeight="bold"
+              pb={[1, 1, 2, 2]}
+              mt="2"
+            >
+              <CircularProgress value={vote} color="green.400">
+                <CircularProgressLabel>
+                  {tvShows?.vote_average}
+                </CircularProgressLabel>
+              </CircularProgress>
+              <Text as="span" fontSize="xs" ml={2}>
+                Vote average
+              </Text>
             </Box>
           </Box>
         </Flex>
-        <Box
-          display={["block", "block", "none", "none"]}
-          fontWeight="bold"
-          pb={[1, 1, 2, 2]}
-          ml="8"
-          mt="2"
-        >
-          <CircularProgress value={vote} color="green.400">
-            <CircularProgressLabel>{movie?.vote_average}</CircularProgressLabel>
-          </CircularProgress>
-          <Text as="span" fontSize="xs" ml={2}>
-            Vote average
-          </Text>
-        </Box>
       </Box>
     </Box>
   );
-};
+}
