@@ -14,6 +14,7 @@ import "swiper/components/pagination/pagination.min.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Movie } from "./pages/movie";
+import MovieList from "./pages/movie-list";
 const queryClient = new QueryClient();
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/movie-list" element={<MovieList />} />
             <Route path="/movie/:movieId" element={<Movie />} />
             <Route path="about" element={<h1>About</h1>} />
           </Routes>
