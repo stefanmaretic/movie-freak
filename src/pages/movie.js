@@ -4,6 +4,7 @@ import {
   getMovieCast,
   getMovieCrew,
   getMovieRecom,
+  getVideo,
 } from "../services/movies";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
@@ -42,11 +43,11 @@ export function Movie() {
   );
   const movieCrew = crew?.data?.crew;
 
-  // const { data: video = {} } = useQuery([queryKeys.video, movieId], () =>
-  //   getVideo(movieId)
-  // );
-  // const movieVideo = video?.data;
-  // console.log(movieVideo);
+  const { data: video = {} } = useQuery([queryKeys.video, movieId], () =>
+    getVideo(movieId)
+  );
+  const movieVideo = video?.data;
+  console.log(movieVideo);
 
   const actors = cast?.data?.cast;
 
@@ -79,7 +80,7 @@ export function Movie() {
                   width: "8px",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                  background: "gray",
+                  background: "green",
                   borderRadius: "24px",
                 },
               }}
@@ -143,7 +144,7 @@ export function Movie() {
                     width: "8px",
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    background: "gray",
+                    background: "green",
                     borderRadius: "24px",
                   },
                 }}

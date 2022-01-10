@@ -73,7 +73,7 @@ export default function Shows() {
                 width: "8px",
               },
               "&::-webkit-scrollbar-thumb": {
-                background: "gray",
+                background: "red",
                 borderRadius: "24px",
               },
             }}
@@ -138,7 +138,7 @@ export default function Shows() {
                   width: "8px",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                  background: "gray",
+                  background: "red",
                   borderRadius: "24px",
                 },
               }}

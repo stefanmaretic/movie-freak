@@ -58,32 +58,33 @@ export default function MovieCrewList({
               {uniqUsers.length}
             </Text>
           </Heading>
-
-          {uniqUsers.map((crew) => (
-            <Flex mb={4} align="center">
-              {crew.profile_path ? (
-                <Image
-                  src={baseProfileImg + crew.profile_path}
-                  alt={crew.name}
-                  w="100px"
-                  h="100px"
-                  borderRadius="10px"
-                />
-              ) : (
-                <Image
-                  src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
-                  alt={crew.name}
-                  w="100px"
-                  h="100px"
-                  borderRadius="10px"
-                />
-              )}
-              <Box ml={2}>
-                <Text fontWeight="bold">{crew.name}</Text>
-                <Text>{crew.job}</Text>
-              </Box>
-            </Flex>
-          ))}
+          <Box maxH="600px" overflow="auto">
+            {uniqUsers.map((crew) => (
+              <Flex mb={4} align="center">
+                {crew.profile_path ? (
+                  <Image
+                    src={baseProfileImg + crew.profile_path}
+                    alt={crew.name}
+                    w="100px"
+                    h="130px"
+                    borderRadius="10px"
+                  />
+                ) : (
+                  <Image
+                    src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                    alt={crew.name}
+                    w="100px"
+                    h="130px"
+                    borderRadius="10px"
+                  />
+                )}
+                <Box ml={2}>
+                  <Text fontWeight="bold">{crew.name}</Text>
+                  <Text>{crew.job}</Text>
+                </Box>
+              </Flex>
+            ))}
+          </Box>
         </Box>
         <Box ml="200px" mt={10}>
           <Heading mb={4}>
@@ -92,31 +93,33 @@ export default function MovieCrewList({
               {movieActors.length}
             </Text>
           </Heading>
-          {movieActors.map((actor) => (
-            <Flex mb={4} align="center">
-              {actor.profile_path ? (
-                <Image
-                  src={baseProfileImg + actor.profile_path}
-                  alt={actor.name}
-                  w="100px"
-                  h="100px"
-                  borderRadius="10px"
-                />
-              ) : (
-                <Image
-                  src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
-                  alt={actor.name}
-                  w="100px"
-                  h="100px"
-                  borderRadius="10px"
-                />
-              )}
-              <Box ml={2}>
-                <Text fontWeight="bold">{actor.name}</Text>
-                <Text>{actor.character}</Text>
-              </Box>
-            </Flex>
-          ))}
+          <Box maxH="600px" overflow="auto">
+            {movieActors.map((actor) => (
+              <Flex mb={4} align="center">
+                {actor.profile_path ? (
+                  <Image
+                    src={baseProfileImg + actor.profile_path}
+                    alt={actor.name}
+                    w="100px"
+                    h="130px"
+                    borderRadius="10px"
+                  />
+                ) : (
+                  <Image
+                    src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                    alt={actor.name}
+                    w="100px"
+                    h="130px"
+                    borderRadius="10px"
+                  />
+                )}
+                <Box ml={2}>
+                  <Text fontWeight="bold">{actor.name}</Text>
+                  <Text>{actor.character}</Text>
+                </Box>
+              </Flex>
+            ))}
+          </Box>
         </Box>
       </Flex>
     </Box>
