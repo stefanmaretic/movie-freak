@@ -12,7 +12,7 @@ import {
 import { MovieCard } from "../components/movie-card";
 import { queryKeys } from "../config/query-keys";
 import { useInfiniteQuery } from "react-query";
-import { fetchMore, getGenreList, getMovieByGenre } from "../services/movies";
+import { fetchMore, getGenreList } from "../services/movies";
 import { Layout } from "../components/layout";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import ScrollToTop from "../components/scroll-to-top";
@@ -23,18 +23,16 @@ export default function MovieList() {
   const [filterByGenre, setFilterByGenre] = useState([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery([queryKeys.pages, filterByGenre], fetchMore, {
-      getNextPageParam: (_lastPage, pages) => pages.length + 1,
-      meta: filterByGenre,
-    });
+    useInfiniteQuery(
+      [queryKeys.pages, filterByGenre],
+      fetchMore(filterByGenre),
+      {
+        getNextPageParam: (lastPage, pages) => pages.length + 1,
+      }
+    );
 
   const genreList = useQuery(queryKeys.genreList, getGenreList);
   const genres = genreList?.data?.data?.genres;
-
-  // const movieGenre = useQuery([queryKeys.genres, filterByGenre], () =>
-  //   getMovieByGenre(filterByGenre)
-  // );
-  // console.log(movieGenre);
 
   function onClickGenre(genre) {
     let newGenres = [];
@@ -46,6 +44,8 @@ export default function MovieList() {
     }
     setFilterByGenre(newGenres);
   }
+
+  const pages = data?.pages?.map((page) => page?.data?.total_results);
   return (
     <>
       <Layout>
@@ -93,6 +93,7 @@ export default function MovieList() {
                 )}
               </Grid>
               <Button
+                isDisabled={pages < 20}
                 mt={6}
                 w="100%"
                 rightIcon={<ArrowForwardIcon />}
