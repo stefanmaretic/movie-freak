@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { MovieCard } from "./movie-card";
 import SwiperCore, { Pagination, Navigation } from "swiper";
 import { Link } from "react-router-dom";
+
 SwiperCore.use([Pagination]);
 SwiperCore.use([Navigation]);
 

@@ -12,7 +12,6 @@ export function Home() {
     getPopularMovies
   );
   const upcomingMovies = useQuery(queryKeys.upcomingMovies, getUpcomingMovies);
-
   const topTvShows = useQuery(queryKeys.topTvShows, getTopTvShows);
   const onAirTvShows = useQuery(queryKeys.airTvShows, getAirTvShows);
 

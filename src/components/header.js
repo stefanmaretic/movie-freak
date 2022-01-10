@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export function Header() {
-    return <h1> This is Header</h1>;
+  return <h1> This is Header</h1>;
 }
