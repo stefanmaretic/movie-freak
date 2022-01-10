@@ -7,4 +7,5 @@ export const queryKeys = {
   pages: "pages",
   genreList: "genre-list",
   genres: "genres",
+  search: "search",
 };
