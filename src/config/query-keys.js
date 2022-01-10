@@ -10,4 +10,5 @@ export const queryKeys = {
   tvShowCast: "tvShowCast",
   crew: "crew",
   tvShowCrew: "tvShowCrew",
+  search: "search",
 };
