@@ -26,7 +26,7 @@ export default function MovieList() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       [queryKeys.pages, filterByGenre],
-      fetchMore(filterByGenre, "32"),
+      fetchMore(filterByGenre),
       {
         getNextPageParam: (_lastPage, pages) => pages.length + 1,
       }
