@@ -1,11 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import {
-  getMovie,
-  getMovieCast,
-  getMovieCrew,
-  getMovieRecom,
-  getVideo,
-} from "../services/movies";
+import { getMovie, getMovieCast, getMovieRecom } from "../services/movies";
 import { useQuery } from "react-query";
 import { queryKeys } from "../config/query-keys";
 import { baseImageUrl, baseProfileImg } from "../services/instances";
@@ -39,16 +33,6 @@ export function Movie() {
   const { data: recom = {} } = useQuery([queryKeys.recom, movieId], () =>
     getMovieRecom(movieId)
   );
-  const { data: crew = {} } = useQuery([queryKeys.crew, movieId], () =>
-    getMovieCrew(movieId)
-  );
-  const movieCrew = crew?.data?.crew;
-
-  const { data: video = {} } = useQuery([queryKeys.video, movieId], () =>
-    getVideo(movieId)
-  );
-  const movieVideo = video?.data;
-  console.log(movieVideo);
 
   const actors = cast?.data?.cast;
 
@@ -114,7 +98,7 @@ export function Movie() {
               </HStack>
             </Box>
 
-            <Link to="/movie-full-crew" state={{ movieCrew, movie, actors }}>
+            <Link to={`/movie/${movieId}/crew`}>
               <Button
                 mt={10}
                 size="sm"

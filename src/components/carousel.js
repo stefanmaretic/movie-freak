@@ -40,7 +40,7 @@ export function Carousel({
                 />
               </Link>
             ) : (
-              <Link to={`/tv/${movie.id}`}>
+              <Link to={`/tvShow/${movie.id}`}>
                 <MovieCard
                   title={movie.name}
                   image={movie.poster_path}

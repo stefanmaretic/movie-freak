@@ -31,14 +31,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            <Route path="/tv/:tvId" element={<Shows />} />
+            <Route path="/tvShow/:tvId" element={<Shows />} />
 
             <Route path="/movie-list" element={<MovieList />} />
             <Route path="/movie/:movieId" element={<Movie />} />
 
             <Route path="about" element={<h1>About</h1>} />
-            <Route path="/movie-full-crew" element={<MovieFullCrew />} />
-            <Route path="/tvshow-full-crew" element={<TvShowFullCrew />} />
+            <Route path="movie/:movieId/crew" element={<MovieFullCrew />} />
+            <Route path="tvShow/:tvId/crew" element={<TvShowFullCrew />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

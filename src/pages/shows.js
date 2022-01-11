@@ -8,7 +8,6 @@ import {
   getTvShows,
   getTvShowsCast,
   getTvShowsRecom,
-  getTvShowsCrew,
 } from "../services/tv-shows";
 import { baseProfileImg } from "../services/instances";
 import {
@@ -44,11 +43,6 @@ export default function Shows() {
   const tvRecom = tvShowRecom?.data;
 
   const tvShows = data?.data;
-
-  const { data: tvShowCrew = {} } = useQuery([queryKeys.tvShowCrew, tvId], () =>
-    getTvShowsCrew(tvId)
-  );
-  const tvCrew = tvShowCrew?.data?.crew;
 
   return (
     <Layout>
@@ -110,10 +104,7 @@ export default function Shows() {
               ))}
             </HStack>
           </Box>
-          <Link
-            to="/tvshow-full-crew"
-            state={{ tvCrew, tvShows, tvShowActors }}
-          >
+          <Link to={`/tvShow/${tvId}/crew`}>
             <Button mt={10} size="sm" colorScheme="blackAlpha" variant="solid">
               Click here to see full crew & cast
             </Button>
@@ -147,7 +138,7 @@ export default function Shows() {
                 {tvRecom?.results.map((result) => {
                   return (
                     <Box key={result.id} minW="160px" minH="266px">
-                      <Link to={`/tv/${result.id}`}>
+                      <Link to={`/tvShow/${result.id}`}>
                         <MovieCard
                           title={result.name}
                           image={result.poster_path}
