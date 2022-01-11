@@ -4,7 +4,6 @@ import SwiperCore, { Pagination, Navigation } from "swiper";
 import { Link } from "react-router-dom";
 SwiperCore.use([Pagination]);
 SwiperCore.use([Navigation]);
-
 const defaultBreakpoints = {
   375: { slidesPerView: 1 },
   640: { slidesPerView: 2 },

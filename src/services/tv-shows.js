@@ -7,3 +7,5 @@ export const getTvShowsCast = async (id) =>
 export const getTvShowsRecom = async (id) =>
   await api.get(`/tv/${id}/recommendations`);
 export const getTvShowsCrew = async (id) => await api.get(`/tv/${id}/credits`);
+
+export const getAirTvShows = async () => await api.get("tv/airing_today");

@@ -1,5 +1,6 @@
 export const queryKeys = {
   popularMovies: "popular-movies",
+  upcomingMovies: "upcoming-movies",
   topTvShows: "popular-tv-shows",
   movies: "movies",
   cast: "cast",
@@ -10,5 +11,9 @@ export const queryKeys = {
   tvShowCast: "tvShowCast",
   crew: "crew",
   tvShowCrew: "tvShowCrew",
+  airTvShows: "air-tv-shows",
+  pages: "pages",
+  genreList: "genre-list",
+  genres: "genres",
   search: "search",
 };

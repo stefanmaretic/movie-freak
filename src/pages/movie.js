@@ -32,6 +32,7 @@ export function Movie() {
   const { data = {} } = useQuery([queryKeys.movies, movieId], () =>
     getMovie(movieId)
   );
+
   const { data: cast = {} } = useQuery([queryKeys.cast, movieId], () =>
     getMovieCast(movieId)
   );
