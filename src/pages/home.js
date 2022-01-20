@@ -1,9 +1,11 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { Layout } from "../components/layout";
 import { Carousel } from "../components/carousel";
 import { getPopularMovies, getUpcomingMovies } from "../services/movies";
 import { getTopTvShows, getAirTvShows } from "../services/tv-shows";
 import { useQuery } from "react-query";
+
 import { queryKeys } from "../config/query-keys";
 
 export function Home() {
