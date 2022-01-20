@@ -1,6 +1,5 @@
 import React from "react";
 
-import TvShowCrewList from "../components/tv-show-crew-list";
 import { Layout } from "../components/layout";
 
 import { useQuery } from "react-query";
