@@ -42,6 +42,7 @@ function App() {
             <Route path="about" element={<h1>About</h1>} />
             <Route path="movie/:movieId/crew" element={<MovieFullCrew />} />
             <Route path="tvShow/:tvId/crew" element={<TvShowFullCrew />} />
+
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms-of-use" element={<TermsOfUse />} />
