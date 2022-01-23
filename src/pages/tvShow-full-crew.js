@@ -93,29 +93,31 @@ export default function TvShowFullCrew() {
             ) : (
               <Box maxH="600px" overflow="auto">
                 {uniqUsers?.map((crew) => (
-                  <Flex mb={4} align="center">
-                    {crew.profile_path ? (
-                      <Image
-                        src={baseProfileImg + crew?.profile_path}
-                        alt={crew?.name}
-                        w="100px"
-                        h="130px"
-                        borderRadius="10px"
-                      />
-                    ) : (
-                      <Image
-                        src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
-                        alt={crew.name}
-                        w="100px"
-                        h="130px"
-                        borderRadius="10px"
-                      />
-                    )}
-                    <Box ml={2}>
-                      <Text fontWeight="bold">{crew?.name}</Text>
-                      <Text>{crew?.job}</Text>
-                    </Box>
-                  </Flex>
+                  <Link to={`/cast/${crew.id}`}>
+                    <Flex mb={4} align="center">
+                      {crew.profile_path ? (
+                        <Image
+                          src={baseProfileImg + crew?.profile_path}
+                          alt={crew?.name}
+                          w="100px"
+                          h="130px"
+                          borderRadius="10px"
+                        />
+                      ) : (
+                        <Image
+                          src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                          alt={crew.name}
+                          w="100px"
+                          h="130px"
+                          borderRadius="10px"
+                        />
+                      )}
+                      <Box ml={2}>
+                        <Text fontWeight="bold">{crew?.name}</Text>
+                        <Text>{crew?.job}</Text>
+                      </Box>
+                    </Flex>
+                  </Link>
                 ))}
               </Box>
             )}
@@ -129,34 +131,36 @@ export default function TvShowFullCrew() {
             </Heading>
             <Box maxH="600px" overflow="auto">
               {tvShowActors?.map((actor) => (
-                <Flex mb={4} align="center">
-                  {actor?.profile_path ? (
-                    <Image
-                      src={baseProfileImg + actor?.profile_path}
-                      alt={actor?.name}
-                      w="100px"
-                      h="130px"
-                      borderRadius="10px"
-                    />
-                  ) : (
-                    <Image
-                      src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
-                      alt={actor?.name}
-                      w="100px"
-                      h="130px"
-                      borderRadius="10px"
-                    />
-                  )}
+                <Link to={`/cast/${actor.id}`}>
+                  <Flex mb={4} align="center">
+                    {actor?.profile_path ? (
+                      <Image
+                        src={baseProfileImg + actor?.profile_path}
+                        alt={actor?.name}
+                        w="100px"
+                        h="130px"
+                        borderRadius="10px"
+                      />
+                    ) : (
+                      <Image
+                        src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                        alt={actor?.name}
+                        w="100px"
+                        h="130px"
+                        borderRadius="10px"
+                      />
+                    )}
 
-                  <Box ml={2} maxH="100px" overflow="auto">
-                    <Text fontWeight="bold">{actor?.name}</Text>
-                    {actor.roles.map((role) => (
-                      <Box maxW="150px" key={role?.id}>
-                        <Text fontSize="16px">{role?.character}</Text>
-                      </Box>
-                    ))}
-                  </Box>
-                </Flex>
+                    <Box ml={2} maxH="100px" overflow="auto">
+                      <Text fontWeight="bold">{actor?.name}</Text>
+                      {actor.roles.map((role) => (
+                        <Box maxW="150px" key={role?.id}>
+                          <Text fontSize="16px">{role?.character}</Text>
+                        </Box>
+                      ))}
+                    </Box>
+                  </Flex>
+                </Link>
               ))}
             </Box>
           </Box>

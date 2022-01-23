@@ -19,7 +19,7 @@ export function Home() {
 
   return (
     <Layout>
-      <Container maxW="container.xl">
+      <Container mt={12} maxW="container.xl">
         <Box my={2}>
           <Heading as="h3" size="md" pb={3}>
             Popular Movies

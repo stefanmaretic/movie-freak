@@ -13,28 +13,28 @@ import {
 import { MovieCard } from "../components/movie-card";
 import { queryKeys } from "../config/query-keys";
 import { useInfiniteQuery } from "react-query";
-import { fetchMore, getGenreList } from "../services/movies";
 import { Layout } from "../components/layout";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import ScrollToTop from "../components/scroll-to-top";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchMoreShow, getTvGenreList } from "../services/tv-shows";
 
-export default function MovieList() {
+export default function TvShowList() {
   const [filterByGenre, setFilterByGenre] = useState([]);
   const [sortBy, setSortBy] = useState([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       [queryKeys.pages, filterByGenre, sortBy],
-      fetchMore(filterByGenre, sortBy),
+      fetchMoreShow(filterByGenre, sortBy),
       {
         getNextPageParam: (_lastPage, pages) => pages.length + 1,
       }
     );
 
-  const genreList = useQuery(queryKeys.genreList, getGenreList);
+  const genreList = useQuery(queryKeys.genreList, getTvGenreList);
   const genres = genreList?.data?.data?.genres;
 
   function onClickGenre(genre) {
@@ -108,7 +108,7 @@ export default function MovieList() {
                 {data?.pages?.map((page) =>
                   page.data?.results?.map((movie) => (
                     <GridItem key={movie.id}>
-                      <Link to={`/movie/${movie.id}`}>
+                      <Link to={`/tvShow/${movie.id}`}>
                         <MovieCard
                           title={movie.title || movie.name}
                           image={movie.poster_path}
