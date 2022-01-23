@@ -20,11 +20,11 @@ export default function ContactForm() {
       <br />
       <FormControl isRequired>
         <FormLabel htmlFor="email">Message</FormLabel>
-        <Textarea placeholder="Here is a sample placeholder" />
+        <Textarea placeholder="Leave your message here" />
       </FormControl>
       <br />
       <FormControl>
-        <Button size="lg" type="submit">
+        <Button variant="submitButton" size="lg" type="submit">
           Submit
         </Button>
       </FormControl>

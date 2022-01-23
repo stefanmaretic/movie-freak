@@ -6,7 +6,7 @@ export default function ContactUs() {
   return (
     <Layout>
       <Flex flexDirection="column" justify="center" align="center">
-        <Box minW="50em" mt="5em">
+        <Box minW="50em" mt="3em">
           <Text align="center" fontSize="4xl" fontWeight="bold">
             Contact Us
           </Text>

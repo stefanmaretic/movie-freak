@@ -1,40 +1,30 @@
-import { extendTheme, Flex, Heading, Link, VStack } from "@chakra-ui/react";
+import { Flex, Heading, Link, VStack } from "@chakra-ui/react";
 import { Link as ReactLink } from "react-router-dom";
-
-const theme = extendTheme({
-  components: {
-    Link: {
-      defaultProps: {
-        color: "green",
-      },
-    },
-  },
-});
 
 export default function LinkGrid() {
   return (
-    <Flex w="50%" justify="space-between" theme={theme}>
-      <VStack>
+    <Flex w="50%" justify="flex-end">
+      <VStack pr="5em" width="150px">
         <Heading fontWeight="bold" size="md" mb="1em">
           Explore
         </Heading>
-        <Link as={ReactLink} to="/">
+        <Link variant="footerLink" as={ReactLink} to="/">
           Home
         </Link>
-        <Link>Movies</Link>
-        <Link>TV Shows</Link>
+        <Link variant="footerLink">Movies</Link>
+        <Link variant="footerLink">TV Shows</Link>
       </VStack>
-      <VStack>
+      <VStack pr="5em">
         <Heading fontWeight="bold" size="md" mb="1em">
           Follow Us
         </Heading>
-        <Link as={ReactLink} to="https://www.facebook.com/">
+        <Link variant="footerLink" href="https://www.facebook.com/">
           Facebook
         </Link>
-        <Link as={ReactLink} to="https://www.instagram.com/">
+        <Link variant="footerLink" href="https://www.instagram.com/">
           Instagram
         </Link>
-        <Link as={ReactLink} to="https://www.youtube.com/">
+        <Link variant="footerLink" href="https://www.youtube.com/">
           Youtube
         </Link>
       </VStack>
@@ -42,13 +32,13 @@ export default function LinkGrid() {
         <Heading fontWeight="bold" size="md" mb="1em">
           Legal Stuff
         </Heading>
-        <Link as={ReactLink} to="/contact-us">
+        <Link variant="footerLink" as={ReactLink} to="/contact-us">
           Contact Us
         </Link>
-        <Link as={ReactLink} to="/privacy">
+        <Link variant="footerLink" as={ReactLink} to="/privacy">
           Privacy
         </Link>
-        <Link as={ReactLink} to="/terms-of-use">
+        <Link variant="footerLink" as={ReactLink} to="/terms-of-use">
           Terms of Use
         </Link>
       </VStack>

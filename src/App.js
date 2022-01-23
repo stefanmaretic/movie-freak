@@ -23,12 +23,13 @@ import MovieList from "./pages/movie-list";
 import ContactUs from "./pages/contact-us";
 import Privacy from "./pages/privacy";
 import TermsOfUse from "./pages/terms-of-use";
+import { theme } from "./styles/theme";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
