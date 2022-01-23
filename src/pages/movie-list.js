@@ -19,16 +19,14 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import ScrollToTop from "../components/scroll-to-top";
 import { useQuery } from "react-query";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function MovieList() {
   const [filterByGenre, setFilterByGenre] = useState([]);
-  const [sortBy, setSortBy] = useState([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
-      [queryKeys.pages, filterByGenre, sortBy],
-      fetchMore(filterByGenre, sortBy),
+      [queryKeys.pages, filterByGenre],
+      fetchMore(filterByGenre),
       {
         getNextPageParam: (_lastPage, pages) => pages.length + 1,
       }
@@ -48,35 +46,39 @@ export default function MovieList() {
     setFilterByGenre(newGenres);
   }
 
-  const handleDropDownChange = (e) => {
-    setSortBy(e.target.value);
-  };
   const pages = data?.pages?.map((page) => page?.data?.total_results);
   return (
     <>
       <Layout>
-        <Container mt={12} maxW="container.xl">
-          <Grid templateColumns={{ md: "repeat(10,1fr)" }} gap={4}>
-            <Box p={6} rounded="md" boxShadow="lg" h="600px" w="300px">
+        <Container maxW="container.xl">
+          <Grid
+            templateRows="repeat(2, 1fr)"
+            templateColumns="repeat(10,9fr)"
+            gap={4}
+          >
+            <Box
+              p={6}
+              rounded="md"
+              boxShadow="lg"
+              rowSpan={2}
+              colSpan={2}
+              h="600px"
+              w="300px"
+            >
               <Box pb={6}>
                 <Text mb={3} fontSize="lg" fontWeight="bold">
                   Sort By
                 </Text>
                 <Divider mb={3} />
-
                 <Text mb={3} fontSize="md">
                   Sort Results By:
                 </Text>
-                <Select onChange={(e) => handleDropDownChange(e)}>
-                  <option value="popularity.desc">Popularity Descending</option>
-                  <option value="popularity.asc">Popularity Ascending</option>
-                  <option value="vote_average.desc">Rating Descending</option>
-                  <option value="vote_average.asc">Rating Ascending</option>
-                  <option value="primary_release_date.desc">
-                    Release Date Descending
-                  </option>
-                  <option value="original_title.asc">Title (A-Z)</option>
-                  <option value="original_title.desc">Title (Z-A)</option>
+                <Select placeholder="Select option">
+                  <option value="option1">Popularity Descending</option>
+                  <option value="option2">Popularity Ascending</option>
+                  <option value="option3">Release Date Descending</option>
+                  <option value="option4">Title (A-Z)</option>
+                  <option value="option5">Title (Z-A)</option>
                 </Select>
               </Box>
               <Text mb={3} fontSize="lg" fontWeight="bold">
@@ -97,25 +99,16 @@ export default function MovieList() {
               </Grid>
             </Box>
             <GridItem rowSpan={2} colSpan={8}>
-              <Grid
-                templateColumns={{
-                  lg: "repeat(3, 1fr)",
-                  md: "repeat(2, 1fr)",
-                  sm: "repeat(1, 1fr)",
-                }}
-                gap={4}
-              >
+              <Grid templateColumns="repeat(4, 1fr)" gap={4}>
                 {data?.pages?.map((page) =>
                   page.data?.results?.map((movie) => (
                     <GridItem key={movie.id}>
-                      <Link to={`/movie/${movie.id}`}>
-                        <MovieCard
-                          title={movie.title || movie.name}
-                          image={movie.poster_path}
-                          rating={movie.vote_average}
-                          year={movie.release_date || movie.first_air_date}
-                        />
-                      </Link>
+                      <MovieCard
+                        title={movie.title || movie.name}
+                        image={movie.poster_path}
+                        rating={movie.vote_average}
+                        year={movie.release_date || movie.first_air_date}
+                      />
                     </GridItem>
                   ))
                 )}

@@ -14,27 +14,9 @@ export const getVideo = async (id) => await api.get(`/movie/${id}/videos`);
 export const getUpcomingMovies = async () => await api.get("/movie/upcoming");
 
 export const fetchMore =
-  (genreIds, sortBy) =>
+  (genreIds) =>
   async ({ pageParam = 1 }) =>
     await api.get("/discover/movie/", {
-      params: {
-        page: pageParam,
-        with_genres: genreIds.join(","),
-        sort_by: sortBy,
-      },
+      params: { page: pageParam, with_genres: genreIds.join(",") },
     });
 export const getGenreList = async () => await api.get("/genre/movie/list");
-
-export const getActors = async (actor_id) =>
-  await api.get(`/person/${actor_id}`);
-
-export const getActorsCredits = async (actor_id) =>
-  await api.get(`/person/${actor_id}/combined_credits`);
-
-export const fetchMoreActors = async ({ pageParam = 1 }) =>
-  await api.get("/person/popular", {
-    params: { page: pageParam },
-  });
-
-export const getActorsSocial = async (actor_id) =>
-  await api.get(`/person/${actor_id}/external_ids`);

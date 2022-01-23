@@ -16,6 +16,4 @@ export const queryKeys = {
   genreList: "genre-list",
   genres: "genres",
   search: "search",
-  combinedCredits: "combined_credits",
-  externalIds: "external_ids",
 };

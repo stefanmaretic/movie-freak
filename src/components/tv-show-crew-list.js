@@ -9,6 +9,7 @@ export default function TvShowCrewList({
   tvShowInfo = {},
   tvShowCast = {},
 }) {
+  console.log(tvShowCast);
   const uniqUsers = Array.from(
     tvShowsCrew.reduce((map, obj) => map.set(obj.id, obj), new Map()).values()
   );
