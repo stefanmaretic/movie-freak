@@ -49,7 +49,12 @@ const ListboxItem = ({ movie }) => {
     >
       <Link to={`/movie/${movie.id}`}>
         <Flex flexDir="row" p={1} alignItems="center">
-          <Image h="38px" src={baseImageUrl + movie.poster_path} />
+          <Image
+            fallbackSrc="https://via.placeholder.com/25x38"
+            h="38px"
+            src={baseImageUrl + movie.poster_path}
+          />
+
           <Box>
             <Text fontWeight="bold" pl={2}>
               {movie.title || movie.name}
@@ -109,7 +114,7 @@ export const Search = () => {
             />
             <InputRightElement>
               {" "}
-              {searchText.length === 0 ? (
+              {searchText === null ? (
                 <SearchIcon />
               ) : (
                 <SmallCloseIcon onClick={clearInput} />

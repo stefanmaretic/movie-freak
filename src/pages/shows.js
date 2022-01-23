@@ -75,31 +75,33 @@ export default function Shows() {
             <HStack>
               {tvShowActors?.slice(0, 21).map((actor) => (
                 <>
-                  <Box key={actor?.id} minW="200px" h="266px">
-                    {actor?.profile_path ? (
-                      <Image
-                        w="150px"
-                        h="200px"
-                        src={baseProfileImg + actor.profile_path}
-                        alt={actor.name}
-                      />
-                    ) : (
-                      <Image
-                        w="150px"
-                        h="200px"
-                        src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
-                        alt=""
-                      />
-                    )}
+                  <Link to={`/cast/${actor.id}`}>
+                    <Box key={actor?.id} minW="200px" h="266px">
+                      {actor?.profile_path ? (
+                        <Image
+                          w="150px"
+                          h="200px"
+                          src={baseProfileImg + actor.profile_path}
+                          alt={actor.name}
+                        />
+                      ) : (
+                        <Image
+                          w="150px"
+                          h="200px"
+                          src="https://centrefordigestivediseases.com/wp-content/uploads/2017/10/team-member-avatar-300x390.png"
+                          alt=""
+                        />
+                      )}
 
-                    <Text fontWeight="bold">{actor.name}</Text>
+                      <Text fontWeight="bold">{actor.name}</Text>
 
-                    {actor.roles.map((role) => (
-                      <Box maxW="150px" key={role.id}>
-                        <Text fontSize="12px">{role.character}</Text>
-                      </Box>
-                    ))}
-                  </Box>
+                      {actor.roles.map((role) => (
+                        <Box maxW="150px" key={role.id}>
+                          <Text fontSize="12px">{role.character}</Text>
+                        </Box>
+                      ))}
+                    </Box>
+                  </Link>
                 </>
               ))}
             </HStack>
