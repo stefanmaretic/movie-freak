@@ -7,7 +7,6 @@ import {
   Container,
   Flex,
   Menu,
-  MenuList,
   Button,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
