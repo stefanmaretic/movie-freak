@@ -36,13 +36,12 @@ export default function People() {
         >
           {data?.pages?.map((page) =>
             page.data?.results?.map((actor) => (
-              <Link to={`/cast/${actor.id}`}>
+              <Link key={actor.id} to={`/cast/${actor.id}`}>
                 <GridItem
                   rounded="lg"
                   boxShadow="md"
                   overflow="hidden"
                   w="100%"
-                  key={actor.id}
                 >
                   <Box position="relative">
                     <Image src={baseActorImg + actor.profile_path} />

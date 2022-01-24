@@ -87,6 +87,7 @@ export default function TvShowList() {
               <Grid templateColumns="repeat(2, 1fr)" gap={2}>
                 {genres?.map((genre) => (
                   <Checkbox
+                    key={genre.id}
                     onChange={() => onClickGenre(genre)}
                     colorScheme="yellow"
                     value={genre.id}
