@@ -238,13 +238,7 @@ export default function Cast() {
                           pl={4}
                         >
                           {crew?.title ? (
-                            <Link
-                              _hover={{
-                                background: "white",
-                                color: "teal.500",
-                              }}
-                              to={`/movie/${crew.id}`}
-                            >
+                            <Link to={`/movie/${crew.id}`}>
                               {crew?.title || crew?.name}
                             </Link>
                           ) : (
