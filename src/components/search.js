@@ -41,15 +41,20 @@ const ListboxItemEmpty = () => {
 
 const ListboxItem = ({ movie }) => {
   return (
-    <Box
-      w="400px"
-      _hover={{
-        bg: "gray.100",
-      }}
-    >
-      <Link to={`/movie/${movie.id}`}>
+    <Link to={`/movie/${movie.id}`}>
+      <Box
+        w="400px"
+        _hover={{
+          bg: "gray.100",
+        }}
+      >
         <Flex flexDir="row" p={1} alignItems="center">
-          <Image h="38px" src={baseImageUrl + movie.poster_path} />
+          <Image
+            fallbackSrc="https://via.placeholder.com/25x38"
+            h="38px"
+            src={baseImageUrl + movie.poster_path}
+          />
+
           <Box>
             <Text fontWeight="bold" pl={2}>
               {movie.title || movie.name}
@@ -57,9 +62,10 @@ const ListboxItem = ({ movie }) => {
             <Text pl={2}>{movie.media_type}</Text>
           </Box>
         </Flex>
-      </Link>
-      <Divider />
-    </Box>
+
+        <Divider />
+      </Box>
+    </Link>
   );
 };
 
@@ -68,7 +74,9 @@ export const Search = () => {
   const debouncedSearchText = useDebounce(searchText, 300);
   const { data, isFetching } = useQuery(
     [queryKeys.search, debouncedSearchText],
-    () => searchByQuery(debouncedSearchText)
+
+    () => searchByQuery(debouncedSearchText),
+    { enabled: !!debouncedSearchText }
   );
 
   const items = data?.data;
@@ -109,7 +117,7 @@ export const Search = () => {
             />
             <InputRightElement>
               {" "}
-              {searchText.length === 0 ? (
+              {searchText === null ? (
                 <SearchIcon />
               ) : (
                 <SmallCloseIcon onClick={clearInput} />
