@@ -16,7 +16,7 @@ export const getUpcomingMovies = async () => await api.get("/movie/upcoming");
 export const fetchMore =
   (genreIds, sortBy) =>
   async ({ pageParam = 1 }) =>
-    await api.get("/discover/movie/", {
+    await api.get("/discover/movie", {
       params: {
         page: pageParam,
         with_genres: genreIds.join(","),
