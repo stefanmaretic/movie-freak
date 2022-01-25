@@ -24,6 +24,7 @@ import ContactUs from "./pages/contact-us";
 import Privacy from "./pages/privacy";
 import TermsOfUse from "./pages/terms-of-use";
 import { theme } from "./styles/theme";
+import ScrollToTop from "./components/scroll-to-top2";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
 

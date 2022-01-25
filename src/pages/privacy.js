@@ -4,7 +4,7 @@ import { Layout } from "../components/layout";
 export default function Privacy() {
   return (
     <Layout>
-      <Box m="2em 5em">
+      <Box m="2rem 5rem">
         <h2 align="center">
           <b>PRIVACY POLICY</b>
         </h2>

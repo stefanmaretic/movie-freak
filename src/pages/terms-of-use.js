@@ -4,7 +4,7 @@ import { Layout } from "../components/layout";
 export default function TermsOfUse() {
   return (
     <Layout>
-      <Box m="2em 5em">
+      <Box m="2rem 5rem">
         <h2>Website Terms of Use</h2>
 
         <p>Version 1.0</p>

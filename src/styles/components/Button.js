@@ -12,6 +12,9 @@ export const ButtonStyles = {
         textDecoration: "none",
         transform: "scale(1.03)",
       },
+      _focus: {
+        boxShadow: "none",
+      },
     },
   },
   // default values for `size` and `variant`

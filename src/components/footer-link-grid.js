@@ -4,8 +4,8 @@ import { Link as ReactLink } from "react-router-dom";
 export default function LinkGrid() {
   return (
     <Flex w="50%" justify="flex-end">
-      <VStack pr="5em" width="150px">
-        <Heading fontWeight="bold" size="md" mb="1em">
+      <VStack pr="5rem" width="150px">
+        <Heading fontWeight="bold" size="md" mb="1rem">
           Explore
         </Heading>
         <Link variant="footerLink" as={ReactLink} to="/">
@@ -14,8 +14,8 @@ export default function LinkGrid() {
         <Link variant="footerLink">Movies</Link>
         <Link variant="footerLink">TV Shows</Link>
       </VStack>
-      <VStack pr="5em">
-        <Heading fontWeight="bold" size="md" mb="1em">
+      <VStack pr="5rem">
+        <Heading fontWeight="bold" size="md" mb="1rem">
           Follow Us
         </Heading>
         <Link variant="footerLink" href="https://www.facebook.com/">
@@ -29,7 +29,7 @@ export default function LinkGrid() {
         </Link>
       </VStack>
       <VStack>
-        <Heading fontWeight="bold" size="md" mb="1em">
+        <Heading fontWeight="bold" size="md" mb="1rem">
           Legal Stuff
         </Heading>
         <Link variant="footerLink" as={ReactLink} to="/contact-us">
