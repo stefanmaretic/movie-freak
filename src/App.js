@@ -20,14 +20,20 @@ import MovieFullCrew from "./pages/movie-full-crew";
 import TvShowFullCrew from "./pages/tvShow-full-crew";
 
 import MovieList from "./pages/movie-list";
+import ContactUs from "./pages/contact-us";
+import Privacy from "./pages/privacy";
+import TermsOfUse from "./pages/terms-of-use";
+import { theme } from "./styles/theme";
+import ScrollToTop from "./components/scroll-to-top2";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
 
@@ -39,6 +45,10 @@ function App() {
             <Route path="about" element={<h1>About</h1>} />
             <Route path="movie/:movieId/crew" element={<MovieFullCrew />} />
             <Route path="tvShow/:tvId/crew" element={<TvShowFullCrew />} />
+
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
